@@ -1,44 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  width: 100%;
 }
 
 div.timeline-grid {
@@ -49,17 +12,55 @@ div.timeline-grid {
   width: 100%;
 }
 
+div.timeline {
+  flex: 1 0 100px;
+  position: relative;
+}
+
+.current-line {
+  width: 100%;
+  border-bottom: 2px;
+  border-bottom-color: black;
+  border-bottom-style: solid;
+  position: absolute;
+  left:0;
+  top:0;
+
+}
+
 div.timeline-date{
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
   background-color:azure;
+  flex: 1 0 100px;
 }
 
 div.timeline-due-dates{
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
   background-color:lightgoldenrodyellow;
   min-height: 50px;
   text-align: left;
   padding-left: 5px;
+  flex: 1 0 100px;
+}
+
+div.flex-container-row{
+  display: flex;
+  align-items: stretch;
+  flex-grow: 1;
+
+}
+
+div.week-row {
+  display: flex;
+  width: 100%;
+}
+
+div.add-record {
+  flex: 1 0 100px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 3px;
 }

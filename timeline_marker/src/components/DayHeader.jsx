@@ -1,7 +1,7 @@
 
 export default function DayHeader(props) {
     return (
-    <div class="timeline-date">
+    <div className="timeline-date">
         <p>{props.date}</p>
         <p>{props.day}</p>
     </div>)

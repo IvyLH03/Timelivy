@@ -1,31 +1,73 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
-import DaySchedule from "./DaySchedule";
 import DayHeader from './DayHeader';
 import DayDues from './DayDues';
-import Timeline from './Timeline';
-import { Table } from 'react-bootstrap';
-import TimelineAxis from './TimelineAxis';
+import {Timeline, TimelineAxis} from './Timeline';
+import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 export default function WeekSchedule(props) {
-    return (
-        <table>
-            <tr>
-                <td style={{padding:0, width:30}} width={0}></td>
-                {Array(7).fill(0).map(e => <td style={{padding:0}}><DayHeader date="test" day="Sunday"/></td>)}
-            </tr>
-            <tr>
-                <td style={{padding:0}}></td>
-                {Array(7).fill(0).map(e=> <td style={{padding:0}}><DayDues/></td>)}
-            </tr>
-            <tr>
-                <td style={{padding:0}}>
-                    <TimelineAxis/>
-                </td>
-                {Array(7).fill(0).map(e=> <td style={{padding:0}}><Timeline/></td>)}
-            </tr>
-        </table>
-    )
+    const [weekData, setWeekData] = useState([]);
+    
+    useEffect(() => {
+        setWeekData([
+            {
+                date: "06/30",
+                day: "Sunday",
+                timeline_record:[],
+            },
+            {
+                date: "07/01",
+                day: "Monday",
+                timeline_record:[],
+            },
+            {
+                date: "07/02",
+                day: "Tuesday",
+                timeline_record:[],
+            },
+            {
+                date: "07/03",
+                day: "Wednesday",
+                timeline_record:[],
+            },
+            {
+                date: "07/04",
+                day: "Thursday",
+                timeline_record:[],
+            },
+            {
+                date: "07/05",
+                day: "Friday",
+                timeline_record:[],
+            },
+            {
+                date: "07/06",
+                day: "Saturday",
+                timeline_record:[],
+            },
+        ])
+    }, [])
+
+    return (<>
+        <div className='week-row' style={{paddingLeft:"30px"}}>
+            <div className="flex-container-row">
+                {weekData.map((e, i) => <DayHeader key={i} {...e}/>)}
+            </div>
+        </div>
+        <div className='week-row' style={{paddingLeft:"30px"}}>
+            <div className="flex-container-row">
+                {weekData.map((e, i)=> <DayDues key={i} {...e}/>)}
+            </div>
+        </div>
+        <div className='week-row' style={{paddingLeft:"30px"}}>
+            {weekData.map((e, i) =><div className='add-record'><Button variant="outline-secondary">Add Record</Button></div>)}
+        </div>
+        <div>
+            <div className='week-row'>
+                <TimelineAxis/>
+                <div className="flex-container-row">
+                    {weekData.map((e, i)=> <Timeline key={i} {...e}/>)}
+                </div>
+            </div>
+        </div>
+    </>)
 }
