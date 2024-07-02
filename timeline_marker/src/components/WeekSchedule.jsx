@@ -13,36 +13,43 @@ export default function WeekSchedule(props) {
                 date: "06/30",
                 day: "Sunday",
                 timeline_record:[],
+                timeline_notes:["a"],
             },
             {
                 date: "07/01",
                 day: "Monday",
                 timeline_record:[],
+                timeline_notes:[],
             },
             {
                 date: "07/02",
                 day: "Tuesday",
                 timeline_record:[],
+                timeline_notes:[],
             },
             {
                 date: "07/03",
                 day: "Wednesday",
                 timeline_record:[],
+                timeline_notes:[],
             },
             {
                 date: "07/04",
                 day: "Thursday",
                 timeline_record:[],
+                timeline_notes:[],
             },
             {
                 date: "07/05",
                 day: "Friday",
                 timeline_record:[],
+                timeline_notes:[],
             },
             {
                 date: "07/06",
                 day: "Saturday",
                 timeline_record:[],
+                timeline_notes:[],
             },
         ])
     }, [])

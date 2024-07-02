@@ -25,7 +25,26 @@ div.timeline {
   position: absolute;
   left:0;
   top:0;
+}
 
+
+div.timeline-notes {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left:0;
+  top:0;
+}
+
+div.timeline-note-piece{
+  border-left-style: solid;
+  border-left-width: 10px;
+  border-left-color: #00ff00;
+  background-color: #00ff0022;
+  position:absolute;
+  width: 100%;
+  border-radius: 2;
+  min-height: 50px;
 }
 
 div.timeline-date{
@@ -49,7 +68,6 @@ div.flex-container-row{
   display: flex;
   align-items: stretch;
   flex-grow: 1;
-
 }
 
 div.week-row {
