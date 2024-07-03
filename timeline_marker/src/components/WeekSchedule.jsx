@@ -12,49 +12,69 @@ export default function WeekSchedule(props) {
             {
                 date: "06/30",
                 day: "Sunday",
-                timeline_record:[],
-                timeline_notes:["a"],
+                timeline_records:[
+                    {
+                        start: 21,
+                        end: 22.5,
+                        note:"Voice dev",
+                    }
+                ],
+                timeline_notes:[
+                    {
+                        start: 21,
+                        end: 22.5,
+                        note:"Voice dev",
+                    }
+                ],
             },
             {
                 date: "07/01",
                 day: "Monday",
-                timeline_record:[],
+                timeline_records:[],
                 timeline_notes:[],
             },
             {
                 date: "07/02",
                 day: "Tuesday",
-                timeline_record:[],
+                timeline_records:[],
                 timeline_notes:[],
             },
             {
                 date: "07/03",
                 day: "Wednesday",
-                timeline_record:[],
+                timeline_records:[],
                 timeline_notes:[],
             },
             {
                 date: "07/04",
                 day: "Thursday",
-                timeline_record:[],
+                timeline_records:[],
                 timeline_notes:[],
             },
             {
                 date: "07/05",
                 day: "Friday",
-                timeline_record:[],
+                timeline_records:[],
                 timeline_notes:[],
             },
             {
                 date: "07/06",
                 day: "Saturday",
-                timeline_record:[],
+                timeline_records:[],
                 timeline_notes:[],
             },
         ])
     }, [])
 
-    return (<>
+    const addRecord = (dayIndex) => {
+        setWeekData(o => {
+            let newData = JSON.parse(JSON.stringify(o));
+            newData[dayIndex].timeline_records = [...newData[dayIndex].timeline_records, "new record"];
+            return newData;
+        })
+    }
+
+    return (<div className="week-schedule">
         <div className='week-row' style={{paddingLeft:"30px"}}>
             <div className="flex-container-row">
                 {weekData.map((e, i) => <DayHeader key={i} {...e}/>)}
@@ -66,7 +86,7 @@ export default function WeekSchedule(props) {
             </div>
         </div>
         <div className='week-row' style={{paddingLeft:"30px"}}>
-            {weekData.map((e, i) =><div className='add-record'><Button variant="outline-secondary">Add Record</Button></div>)}
+            {weekData.map((e, i) =><div className='add-record'><Button variant="outline-secondary" onClick={() => addRecord(i)}>Add Record</Button></div>)}
         </div>
         <div>
             <div className='week-row'>
@@ -76,5 +96,5 @@ export default function WeekSchedule(props) {
                 </div>
             </div>
         </div>
-    </>)
+    </div>)
 }

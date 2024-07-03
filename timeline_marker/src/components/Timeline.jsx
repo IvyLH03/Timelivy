@@ -4,14 +4,20 @@ import { useEffect, useState } from "react";
 export function TimelineAxis(props) {
     return(
         <div>
-            {Array(48).fill(0).map((e,i)=> <div key={i} className="timeline-grid" style={{width:30}}>{i%2===0?i/2:""}</div>)}
+            {Array(24).fill(0).map((e,i)=> <div key={i} className="timeline-grid" style={{width:30}}>{i}</div>)}
         </div>
     )
 }
 
 export function TimelineNotePiece(props) {
-    return (<div className="timeline-note-piece" style={{top:props.top}}>
+    return (<div className="timeline-note-piece" style={{top:props.top, height:props.height}}>
+        <p>{props.note}</p>
+    </div>)
+}
 
+export function TimelineRecordPiece(props) {
+    return (<div className="timeline-record-piece" style={{top:props.top, height:props.height}}>
+        <p>{props.note}</p>
     </div>)
 }
 
@@ -29,11 +35,14 @@ export function Timeline(props) {
     return (
         <div className="timeline">
             <div className="timeline-background">
-                {Array(48).fill(0).map((e,i)=> <div key={i} className="timeline-grid"></div>)}
+                {Array(24).fill(0).map((e,i)=> <div key={i} className="timeline-grid"></div>)}
             </div>
             <div className="current-line" style={{height:currentHeight + "%"}} />
             <div className="timeline-notes">
-                {props.timeline_notes?.map((e,i) => <TimelineNotePiece/>)}
+                {props.timeline_notes?.map((e,i) => <TimelineNotePiece note={e.note} top={e.start * 40} height={(e.end-e.start) * 40}/>)}
+            </div>
+            <div className="timeline-records">
+                {props.timeline_records?.map((e,i) => <TimelineRecordPiece note={e.note} top={e.start * 40} height={(e.end-e.start) * 40}/>)}
             </div>
         </div>
     )

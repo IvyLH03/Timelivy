@@ -5,10 +5,11 @@
 }
 
 div.timeline-grid {
-  border-color: lightgray;
-  border-width: 2px;
+  border-bottom-color: lightgray;
+  border-top-color: lightgray;
+  border-width: 1px;
   border-style: solid;
-  height: 20px;
+  height: 40px;
   width: 100%;
 }
 
@@ -29,35 +30,60 @@ div.timeline {
 
 
 div.timeline-notes {
-  width: 100%;
+  width: 50%;
   height: 100%;
   position: absolute;
   left:0;
   top:0;
+  border-right-style: solid;
+  border-right-color: lightgrey;
+}
+
+div.timeline-records {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  right:0;
+  top:0;
 }
 
 div.timeline-note-piece{
-  border-left-style: solid;
-  border-left-width: 10px;
-  border-left-color: #00ff00;
-  background-color: #00ff0022;
+  border-right-style:solid;
+  border-right-width: 10px;
+  border-top-style:solid;
+  border-top-color: #A6A6A6;
+  border-right-color: #A6A6A6d0;
+  background-color: #A6A6A622;
   position:absolute;
   width: 100%;
-  border-radius: 2;
-  min-height: 50px;
+  border-bottom-left-radius: 10px;
+  height: 50px;
+}
+
+div.timeline-record-piece{
+  border-left-style: solid;
+  border-left-width: 10px;
+  border-left-color: #5B9BD5d0;
+  border-top-style:solid;
+  border-top-color: #5B9BD5;
+  background-color: #5B9BD522;
+  position:absolute;
+  width: 100%;
+  border-bottom-right-radius: 10px;
+  height: 50px;
 }
 
 div.timeline-date{
   border-width: 1px;
   border-style: solid;
-  background-color:azure;
+  background-color:#D9E1F2;
   flex: 1 0 100px;
 }
 
 div.timeline-due-dates{
   border-width: 1px;
   border-style: solid;
-  background-color:lightgoldenrodyellow;
+  background-color:#FFF2CC;
   min-height: 50px;
   text-align: left;
   padding-left: 5px;
@@ -81,4 +107,8 @@ div.add-record {
   border-color: black;
   border-style: solid;
   padding: 3px;
+}
+
+div.week-schedule {
+  border-style: solid;
 }
