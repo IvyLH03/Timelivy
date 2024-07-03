@@ -74,6 +74,16 @@ export default function WeekSchedule(props) {
         })
     }
 
+    const addNote = (dayIndex, start, end, note) => {
+        setWeekData(o => {
+            let newData = JSON.parse(JSON.stringify(o));
+            newData[dayIndex].timeline_notes = [...newData[dayIndex].timeline_notes, {
+                start:start, end:end, note:note
+            }];
+            return newData;
+        })
+    }
+
     return (<div className="week-schedule">
         <div className='week-row' style={{paddingLeft:"30px"}}>
             <div className="flex-container-row">
@@ -89,7 +99,7 @@ export default function WeekSchedule(props) {
             <div className='week-row'>
                 <TimelineAxis/>
                 <div className="flex-container-row">
-                    {weekData.map((e, i)=> <Timeline key={i} {...e}/>)}
+                    {weekData.map((e, i)=> <Timeline key={i} {...e} dayIndex={i} addRecord={addRecord} addNote={addNote}/>)}
                 </div>
             </div>
         </div>
