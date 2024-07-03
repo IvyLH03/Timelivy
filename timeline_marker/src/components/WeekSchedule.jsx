@@ -85,9 +85,6 @@ export default function WeekSchedule(props) {
                 {weekData.map((e, i)=> <DayDues key={i} {...e}/>)}
             </div>
         </div>
-        <div className='week-row' style={{paddingLeft:"30px"}}>
-            {weekData.map((e, i) =><div className='add-record'><Button variant="outline-secondary" onClick={() => addRecord(i)}>Add Record</Button></div>)}
-        </div>
         <div>
             <div className='week-row'>
                 <TimelineAxis/>

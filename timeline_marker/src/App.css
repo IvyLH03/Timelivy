@@ -14,14 +14,14 @@ div.timeline-grid {
 }
 
 div.timeline {
-  flex: 1 0 100px;
+  flex: 1 1 200px;
   position: relative;
 }
 
 .current-line {
   width: 100%;
   border-bottom: 2px;
-  border-bottom-color: black;
+  border-bottom-color: crimson;
   border-bottom-style: solid;
   position: absolute;
   left:0;
@@ -37,6 +37,7 @@ div.timeline-notes {
   top:0;
   border-right-style: solid;
   border-right-color: lightgrey;
+  border-right-width:1px;
 }
 
 div.timeline-records {
@@ -45,6 +46,9 @@ div.timeline-records {
   position: absolute;
   right:0;
   top:0;
+  border-left-style: solid;
+  border-left-color: lightgrey;
+  border-left-width:1px;
 }
 
 div.timeline-note-piece{
@@ -73,11 +77,29 @@ div.timeline-record-piece{
   height: 50px;
 }
 
+
+Button.add-record {
+  flex:1 1 0px;
+  margin: 2px;
+}
+
+Button.add-note {
+  flex:1 1 0px;
+  margin: 2px;
+}
+
+div.timeline-btn-row {
+  height: 40px;
+  display: flex;
+  border-style: solid;
+  border-width: 1px;
+}
+
 div.timeline-date{
   border-width: 1px;
   border-style: solid;
   background-color:#D9E1F2;
-  flex: 1 0 100px;
+  flex: 1 1 200px;
 }
 
 div.timeline-due-dates{
@@ -87,7 +109,7 @@ div.timeline-due-dates{
   min-height: 50px;
   text-align: left;
   padding-left: 5px;
-  flex: 1 0 100px;
+  flex: 1 1 200px;
 }
 
 div.flex-container-row{
@@ -99,14 +121,6 @@ div.flex-container-row{
 div.week-row {
   display: flex;
   width: 100%;
-}
-
-div.add-record {
-  flex: 1 0 100px;
-  border-width: 1px;
-  border-color: black;
-  border-style: solid;
-  padding: 3px;
 }
 
 div.week-schedule {

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-
+import { Button } from "react-bootstrap";
 
 export function TimelineAxis(props) {
     return(
         <div>
-            {Array(24).fill(0).map((e,i)=> <div key={i} className="timeline-grid" style={{width:30}}>{i}</div>)}
+            {Array(25).fill(0).map((e,i)=> <div key={i} className="timeline-grid" style={{width:30}}>{i>0?i-1:""}</div>)}
         </div>
     )
 }
@@ -34,15 +34,22 @@ export function Timeline(props) {
         
     return (
         <div className="timeline">
-            <div className="timeline-background">
-                {Array(24).fill(0).map((e,i)=> <div key={i} className="timeline-grid"></div>)}
-            </div>
-            <div className="current-line" style={{height:currentHeight + "%"}} />
-            <div className="timeline-notes">
-                {props.timeline_notes?.map((e,i) => <TimelineNotePiece note={e.note} top={e.start * 40} height={(e.end-e.start) * 40}/>)}
-            </div>
-            <div className="timeline-records">
-                {props.timeline_records?.map((e,i) => <TimelineRecordPiece note={e.note} top={e.start * 40} height={(e.end-e.start) * 40}/>)}
+            
+            <div className="timeline-btn-row">
+                        <Button className='add-note' variant="outline-secondary" onClick={() => props.addRecord()}>+Note</Button>
+                        <Button className='add-record' variant="outline-secondary" onClick={() => props.addRecord()}>+Record</Button>
+                    </div>
+            <div className="timeline">   
+                <div className="timeline-background">
+                    {Array(24).fill(0).map((e,i)=> <div key={i} className="timeline-grid"></div>)}
+                </div>
+                <div className="current-line" style={{height:currentHeight + "%"}} />
+                <div className="timeline-notes">
+                    {props.timeline_notes?.map((e,i) => <TimelineNotePiece note={e.note} top={e.start * 40} height={(e.end-e.start) * 40}/>)}
+                </div>
+                <div className="timeline-records">
+                    {props.timeline_records?.map((e,i) => <TimelineRecordPiece note={e.note} top={e.start * 40} height={(e.end-e.start) * 40}/>)}
+                </div>
             </div>
         </div>
     )
