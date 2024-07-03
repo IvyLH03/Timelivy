@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 
 
 export function TimelineAxis(props) {
@@ -15,8 +16,16 @@ export function TimelineNotePiece(props) {
 }
 
 export function Timeline(props) {
-    const dt = new Date();
+    const [dt, setDt] = useState(new Date())
     let currentHeight = (dt.getHours() + (dt.getMinutes() / 60) ) / 24 * 100;
+
+    useEffect(() => {
+        setInterval(() => {
+            setDt(new Date());
+            console.log("date reset");
+        }, 5 * 60 * 1000)
+    }, [])    
+        
     return (
         <div className="timeline">
             <div className="timeline-background">
