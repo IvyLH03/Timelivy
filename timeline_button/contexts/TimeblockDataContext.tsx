@@ -1,11 +1,11 @@
 import React, {createContext} from "react";
-import { Timeblock, TimeblockLabel } from "@/types/common";
+import { TimeblockType, TimeblockLabelType } from "@/types/common";
 
 export interface TimeblockDataContextType {
-    timeblocks:Timeblock[],
-    currentTimeblock:Timeblock | undefined,
-    saveCurrentTimeblock: (current:Timeblock) => void,
-    labels:TimeblockLabel[],
+    timeblocks:TimeblockType[],
+    currentTimeblock:TimeblockType | undefined,
+    saveCurrentTimeblock: (current:TimeblockType) => void,
+    labels:TimeblockLabelType[],
 }
 
 export const TimeblockDataContext = createContext<TimeblockDataContextType|undefined>(undefined)

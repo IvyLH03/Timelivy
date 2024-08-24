@@ -8,7 +8,7 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
 import { TimeblockDataContext } from '@/contexts/TimeblockDataContext';
-import { Timeblock, TimeblockLabel } from '@/types/common';
+import { TimeblockType, TimeblockLabelType } from '@/types/common';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,11 +50,11 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
-  const [timeblocks, setTimeblocks] = useState<Timeblock[]>([])
-  const [currentTimeblock, setCurrentTimeblock] = useState<Timeblock>()
-  const [labels, setLabels] = useState<TimeblockLabel[]>([])
+  const [timeblocks, setTimeblocks] = useState<TimeblockType[]>([])
+  const [currentTimeblock, setCurrentTimeblock] = useState<TimeblockType>()
+  const [labels, setLabels] = useState<TimeblockLabelType[]>([])
 
-  const saveCurrentTimeblock = (current: Timeblock) => {
+  const saveCurrentTimeblock = (current: TimeblockType) => {
     setCurrentTimeblock(current)
   }
 

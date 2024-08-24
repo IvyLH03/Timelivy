@@ -1,11 +1,11 @@
-export interface Timeblock {
+export interface TimeblockType {
     start:number,
     end:number,
     primary_name:string,
-    label:TimeblockLabel[]
+    label:TimeblockLabelType[]
 }
 
-export interface TimeblockLabel {
+export interface TimeblockLabelType {
     name:string,
     is_private:boolean
 }
