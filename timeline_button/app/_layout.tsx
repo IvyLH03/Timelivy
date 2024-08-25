@@ -9,6 +9,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/components/useColorScheme';
 import { TimeblockDataContext } from '@/contexts/TimeblockDataContext';
 import { TimeblockType, TimeblockLabelType } from '@/types/common';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,18 +55,61 @@ function RootLayoutNav() {
   const [currentTimeblock, setCurrentTimeblock] = useState<TimeblockType>()
   const [labels, setLabels] = useState<TimeblockLabelType[]>([])
 
-  const saveCurrentTimeblock = (current: TimeblockType) => {
+  const storeData = async (key:string, value:any) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem(key, jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const getData = async (key:string) => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(key);
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  const updateCurrentTimeblock = (current: TimeblockType) => {
     setCurrentTimeblock(current)
+    storeData('current-timeblock', current)
   }
 
-  const saveCurrentToTimeblocks = () => {
-    if(currentTimeblock)
-      setTimeblocks(o => [...o, {...currentTimeblock, end:Date.now()}])
+  const saveCurrentTimeblock = () => {
+    if(currentTimeblock){
+      setTimeblocks(o => {
+        let newTimeblocks = [...o, {...currentTimeblock, end:Date.now()}]
+        storeData('timeblocks', newTimeblocks)
+        return newTimeblocks
+      } )
+    }
   }
+
+  // load timeblock data from local storage on mount
+  useEffect(() => {
+    // get timeblock data from local storage
+    getData('timeblocks')
+    .then(data => {
+      if(data != null)
+        setTimeblocks(data)
+    })
+
+    // get current timeblock data from local storage
+    getData('current-timeblock')
+    .then(data => {
+      if(data != null)
+        setCurrentTimeblock(data)
+    })
+
+  }, [])
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <TimeblockDataContext.Provider value={{timeblocks, currentTimeblock, saveCurrentTimeblock, labels}}>
+      <TimeblockDataContext.Provider 
+        value={{timeblocks, currentTimeblock, updateCurrentTimeblock, labels, saveCurrentTimeblock}}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />

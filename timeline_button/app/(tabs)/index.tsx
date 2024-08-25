@@ -4,21 +4,27 @@ import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { useContext, useEffect, useState } from 'react';
 import { TimeblockDataContext, TimeblockDataContextType } from '@/contexts/TimeblockDataContext';
-import { emptyTimeblockFactory } from '@/types/common';
+import { emptyTimeblockFactory, TimeblockType } from '@/types/common';
 
 export default function TabOneScreen() {
   const timeblockDataContext = useContext(TimeblockDataContext) as TimeblockDataContextType
 
-  const {timeblocks, currentTimeblock, saveCurrentTimeblock, labels} = timeblockDataContext 
+  const {timeblocks, currentTimeblock, updateCurrentTimeblock, saveCurrentTimeblock, labels} = timeblockDataContext 
 
   const [eventName, setEventName] = useState<string>("")
   const [eventTimeLasting, setEventTimeLasting] = useState<number>(0)
 
   const onEventStart = () => {
-    // TODO: add old timeblock to timeline
+    // add old timeblock to timeline with updated end time
+    if(currentTimeblock) {
+      updateCurrentTimeblock({
+        ...currentTimeblock, end: Date.now()
+      })
+      saveCurrentTimeblock()
+    }
 
-    // update current event
-    saveCurrentTimeblock({
+    // create a new current timeblock
+    updateCurrentTimeblock({
       primary_name:eventName,
       start: Date.now(),
       end:0,
@@ -33,14 +39,19 @@ export default function TabOneScreen() {
   }
 
   useEffect(() => {
-    
     const updateEventTimeLasting = () => {
-      if(currentTimeblock) setEventTimeLasting(Math.floor((Date.now() - currentTimeblock.start)/1000))
+      if(currentTimeblock){
+        setEventTimeLasting(Math.floor((Date.now() - currentTimeblock.start)/1000))
+      }
+      else {
+        
+        setEventTimeLasting(Date.now()/1000)
+      }
     }
     let eventTimeUpdateInterval = setInterval(updateEventTimeLasting, 1000)
 
     return () => clearInterval(eventTimeUpdateInterval);
-  }, [])
+  }, [currentTimeblock])
 
   const formatTime = (seconds:number):string => {
     let hours:number = Math.floor(seconds / 3600)
