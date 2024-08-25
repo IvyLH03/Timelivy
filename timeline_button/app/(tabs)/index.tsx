@@ -5,6 +5,7 @@ import { Text, View } from '@/components/Themed';
 import { useContext, useEffect, useState } from 'react';
 import { TimeblockDataContext, TimeblockDataContextType } from '@/contexts/TimeblockDataContext';
 import { emptyTimeblockFactory, TimeblockType } from '@/types/common';
+import { formatTimeInterval } from '@/utils/utils';
 
 export default function TimetrackScreen() {
   const timeblockDataContext = useContext(TimeblockDataContext) as TimeblockDataContextType
@@ -14,6 +15,7 @@ export default function TimetrackScreen() {
   const [eventName, setEventName] = useState<string>("")
   const [eventTimeLasting, setEventTimeLasting] = useState<number>(0)
 
+  // execute when start button is pressed
   const onEventStart = () => {
     // add old timeblock to timeline with updated end time
     if(currentTimeblock) {
@@ -38,6 +40,7 @@ export default function TimetrackScreen() {
     setEventTimeLasting(0)
   }
 
+  // update event timer when current timeblock information is updated
   useEffect(() => {
     const updateEventTimeLasting = () => {
       if(currentTimeblock){
@@ -53,12 +56,7 @@ export default function TimetrackScreen() {
     return () => clearInterval(eventTimeUpdateInterval);
   }, [currentTimeblock])
 
-  const formatTime = (seconds:number):string => {
-    let hours:number = Math.floor(seconds / 3600)
-    let minutes:number = Math.floor(seconds % 3600 / 60)
-    let remainingSeconds:number = seconds % 60
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
-  }
+  
 
   return (
     <View style={styles.container}>
@@ -69,7 +67,7 @@ export default function TimetrackScreen() {
         currentTimeblock?
         <>
           <Text>目前正在做：{currentTimeblock?.primary_name}</Text>
-          <Text>已经做了：{formatTime(eventTimeLasting)}</Text>
+          <Text>已经做了：{formatTimeInterval(eventTimeLasting)}</Text>
         </>:<>
           <Text>（没有正在进行的事项）</Text>
         </>
