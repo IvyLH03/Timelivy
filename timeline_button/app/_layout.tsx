@@ -112,7 +112,7 @@ function RootLayoutNav() {
         value={{timeblocks, currentTimeblock, updateCurrentTimeblock, labels, saveCurrentTimeblock}}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
         </Stack>
       </TimeblockDataContext.Provider>
     </ThemeProvider>

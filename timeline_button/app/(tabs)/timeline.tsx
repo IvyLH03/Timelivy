@@ -19,7 +19,7 @@ function TimeBlock(props:{data:TimeblockType}) {
 }
 
 
-export default function TabTwoScreen() {
+export default function TimelineScreen() {
 
   const timeblockDataContext = useContext(TimeblockDataContext) as TimeblockDataContextType
   const {timeblocks} = timeblockDataContext 

@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { TimeblockDataContext, TimeblockDataContextType } from '@/contexts/TimeblockDataContext';
 import { emptyTimeblockFactory, TimeblockType } from '@/types/common';
 
-export default function TabOneScreen() {
+export default function TimetrackScreen() {
   const timeblockDataContext = useContext(TimeblockDataContext) as TimeblockDataContextType
 
   const {timeblocks, currentTimeblock, updateCurrentTimeblock, saveCurrentTimeblock, labels} = timeblockDataContext 
