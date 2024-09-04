@@ -1,0 +1,12 @@
+{
+  "name": "timeline_backend",
+  "version": "1.0.0",
+  "description": "backend for timeline",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "IvyLH03",
+  "license": "ISC"
+}
