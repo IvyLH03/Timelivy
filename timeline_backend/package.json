@@ -2,11 +2,13 @@
   "name": "timeline_backend",
   "version": "1.0.0",
   "description": "backend for timeline",
-  "main": "index.js",
-  "devDependencies": {},
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "IvyLH03",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
