@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <p>hello</p>
+    <button onclick="getThings()">get</button>
+    <button onclick="putThings()">put</button>
+    <script>
+      let base_url = "http://localhost:3000/"
+      function getThings() {
+        fetch("http://localhost:3000/test/1", {
+          method: "GET",
+        })
+        .then(res => {
+          console.log(res); 
+          return res.json()})
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+      }
+    
+      function putThings() {
+        fetch(base_url + "test_put", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            data: "hi"
+          })
+        })
+        .then(res => console.log(res))
+        
+      }
+    </script>
+  </body>
+
+</html>
