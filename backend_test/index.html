@@ -6,7 +6,7 @@
     <script>
       let base_url = "http://localhost:3000/"
       function getThings() {
-        fetch("http://localhost:3000/test/1", {
+        fetch(base_url + "test_get", {
           method: "GET",
         })
         .then(res => {
