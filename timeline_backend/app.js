@@ -15,12 +15,22 @@ applyLogging(app);
 const INSERT_DATA_SQL = 'INSERT INTO TestData(value) VALUES (?) RETURNING id;'
 const GET_DATA_SQL = 'SELECT * FROM TestData'
 
+const INSERT_TIMEBLOCK_SQL = 'INSERT INTO TimelineBlocks(event, description, start, end) VALUES (?, ?, ?, ?) RETURNING id;'
+const GET_TIMEBLOCK_ALL_SQL = 'SELECT * FROM TimelineBlocks'
+
 const db = await open({
   filename: "./db.db",
   driver: sqlite3.Database
 });
 
 await db.exec("CREATE TABLE IF NOT EXISTS TestData(id INTEGER PRIMARY KEY UNIQUE, value TEXT NOT NULL);")
+await db.exec("CREATE TABLE IF NOT EXISTS TimelineBlocks("+
+  "id INTEGER PRIMARY KEY UNIQUE, "+
+  "event TEXT NOT NULL, "+
+  "description TEXT NOT NULL, "+
+  "start INTEGER NOT NULL, "+
+  "end INTEGER "+
+  ");")
 
 
 app.get('/', (req, res) => {
@@ -34,7 +44,6 @@ app.get('/test', (req, res) => {
 app.post('/test_put', async (req, res) => {
   try {
     const ret = await db.get(INSERT_DATA_SQL, req.body.data)
-    console.log(ret)
     res.status(200).send(ret)
   } catch (e) {
     res.status(500).send({msg:"something went wrong"})
@@ -45,7 +54,6 @@ app.post('/test_put', async (req, res) => {
 app.get('/test_get', async (req, res) => {
   try {
     const ret = await db.all(GET_DATA_SQL)
-    console.log(ret)
     res.status(200).send(ret)
   } catch (e) {
     res.status(500).send({msg:"something went wrong"})
@@ -53,6 +61,34 @@ app.get('/test_get', async (req, res) => {
   }
 })
 
+// post a timeblock record
+app.post('/timeline', async (req, res) => {
+  try{
+    const ret = await db.get(INSERT_TIMEBLOCK_SQL, req.body.event, req.body.description, req.body.start, req.body.end)
+    res.status(200).send(ret)
+  } catch(e) {
+    res.status(500).send({msg:"something went wrong"})
+    console.log(e)
+  }
+})
+
+// get all timeblock records
+app.get('/timeline', async (req, res) => {
+  try{
+    const ret = await db.all(GET_TIMEBLOCK_ALL_SQL)
+    res.status(200).send(ret)
+  } catch(e) {
+    res.status(500).send({msg:"something went wrong"})
+    console.log(e)
+  }
+})
+
+// change a timeblock
+
+// delete a timeblock
+
+
+app.get('/timeline')
 
 applyErrorCatching(app)
 
