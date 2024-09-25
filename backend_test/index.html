@@ -2,7 +2,7 @@
   <body>
     <p>hello</p>
     <button onclick="getThings()">get</button>
-    <button onclick="putThings()">put</button>
+    <button onclick="postThings()">put</button>
     <script>
       let base_url = "http://localhost:3000/"
       function getThings() {
@@ -16,7 +16,7 @@
         .catch(err => console.log(err))
       }
     
-      function putThings() {
+      function postThings() {
         fetch(base_url + "timeline", {
           method: "POST",
           headers: {
@@ -31,6 +31,29 @@
         })
         .then(res => console.log(res))
         
+      }
+
+      function updateThing(id) {
+        fetch(base_url +`timeline?id=${id}`, {
+          method: "PUT",
+          headers:{
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            event:"New name",
+            start:"1",
+            end:"20",
+            description:"New description!"
+          })
+        })
+        .then(res => console.log(res))
+      }
+
+      function deleteThing(id) {
+        fetch(base_url +`timeline?id=${id}`, {
+          method: "DELETE"
+        })
+        .then(res => console.log(res))
       }
     </script>
   </body>

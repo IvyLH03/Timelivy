@@ -17,6 +17,8 @@ const GET_DATA_SQL = 'SELECT * FROM TestData'
 
 const INSERT_TIMEBLOCK_SQL = 'INSERT INTO TimelineBlocks(event, description, start, end) VALUES (?, ?, ?, ?) RETURNING id;'
 const GET_TIMEBLOCK_ALL_SQL = 'SELECT * FROM TimelineBlocks'
+const UPDATE_TIMEBLOCK_SQL = 'UPDATE TimelineBlocks SET event = ?, description = ?, start = ?, end = ? WHERE id = ?'
+const DELETE_TIMEBLOCK_SQL = 'DELETE FROM TimelineBlocks WHERE id = ?'
 
 const db = await open({
   filename: "./db.db",
@@ -83,12 +85,31 @@ app.get('/timeline', async (req, res) => {
   }
 })
 
-// change a timeblock
+// update a timeblock with new information
+app.put('/timeline', async (req, res) => {
+  try{
+    console.log(req.body.event, req.body.description, req.body.start, req.body.end, req.query.id)
+    const ret = await db.get(UPDATE_TIMEBLOCK_SQL, req.body.event, req.body.description, req.body.start, req.body.end, req.query.id)
+    res.status(200).send(ret)
+  } catch(e) {
+    res.status(500).send({msg:"something went wrong"})
+    console.log(e)
+  }
+})
+
 
 // delete a timeblock
+app.delete('/timeline', async (req, res) => {
+  try{
+    console.log(req.query.id)
+    const ret = await db.get(DELETE_TIMEBLOCK_SQL, req.query.id)
+    res.status(200).send(ret)
+  } catch(e) {
+    res.status(500).send({msg:"something went wrong"})
+    console.log(e)
+  }
+})
 
-
-app.get('/timeline')
 
 applyErrorCatching(app)
 
