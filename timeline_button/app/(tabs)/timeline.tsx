@@ -9,7 +9,7 @@ import { TimeblockDataContext, TimeblockDataContextType } from '@/contexts/Timeb
 function TimeBlock(props:{data:TimeblockType}) {
   return <View style={styles.timeblock}>
     <Text style={styles.timeblockText}>
-      {props.data?.primary_name}
+      {props.data?.event}
       {'\n'}
       {props.data?.start}
       {'\n'}

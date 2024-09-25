@@ -27,10 +27,10 @@ export default function TimetrackScreen() {
 
     // create a new current timeblock
     updateCurrentTimeblock({
-      primary_name:eventName,
+      event:eventName,
       start: Date.now(),
       end:0,
-      label:[]
+      description:"no description"
     })
 
     // clear TextInput text
@@ -66,7 +66,7 @@ export default function TimetrackScreen() {
       {
         currentTimeblock?
         <>
-          <Text>目前正在做：{currentTimeblock?.primary_name}</Text>
+          <Text>目前正在做：{currentTimeblock?.event}</Text>
           <Text>已经做了：{formatTimeInterval(eventTimeLasting)}</Text>
         </>:<>
           <Text>（没有正在进行的事项）</Text>

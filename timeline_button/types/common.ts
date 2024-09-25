@@ -1,13 +1,8 @@
 export interface TimeblockType {
     start:number,
     end:number,
-    primary_name:string,
-    label:TimeblockLabelType[]
-}
-
-export interface TimeblockLabelType {
-    name:string,
-    is_private:boolean
+    event:string,
+    description:string
 }
 
 export function emptyTimeblockFactory() {
