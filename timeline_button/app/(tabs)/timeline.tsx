@@ -9,6 +9,8 @@ import { TimeblockDataContext, TimeblockDataContextType } from '@/contexts/Timeb
 function TimeBlock(props:{data:TimeblockType}) {
   return <View style={styles.timeblock}>
     <Text style={styles.timeblockText}>
+      {props.data?.id}
+      {'\n'}
       {props.data?.event}
       {'\n'}
       {props.data?.start}
@@ -29,7 +31,7 @@ export default function TimelineScreen() {
       <View style={styles.timelineAxis}/>
       <View style={styles.timeblockContainer}>
         {
-          timeblocks.map(o => <TimeBlock data={o} key={o.start}/>)
+          timeblocks.map(o => <TimeBlock data={o} key={o.id}/>)
         }
       </View>
     </View>

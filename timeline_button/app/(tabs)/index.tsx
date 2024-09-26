@@ -4,57 +4,59 @@ import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { useContext, useEffect, useState } from 'react';
 import { TimeblockDataContext, TimeblockDataContextType } from '@/contexts/TimeblockDataContext';
-import { emptyTimeblockFactory, TimeblockType } from '@/types/common';
-import { formatTimeInterval } from '@/utils/utils';
+import { TimeblockType } from '@/types/common';
+import { formatTimeInterval, postTimeblockRemote } from '@/utils/utils';
 
 export default function TimetrackScreen() {
   const timeblockDataContext = useContext(TimeblockDataContext) as TimeblockDataContextType
 
-  const {timeblocks, currentTimeblock, updateCurrentTimeblock, saveCurrentTimeblock, labels} = timeblockDataContext 
+  const {timeblocks, saveTimeblocks} = timeblockDataContext 
+  let currentTimeblock = timeblocks[timeblocks.length-1]
 
   const [eventName, setEventName] = useState<string>("")
   const [eventTimeLasting, setEventTimeLasting] = useState<number>(0)
 
   // execute when start button is pressed
   const onEventStart = () => {
-    // add old timeblock to timeline with updated end time
-    if(currentTimeblock) {
-      updateCurrentTimeblock({
-        ...currentTimeblock, end: Date.now()
-      })
-      saveCurrentTimeblock()
-    }
+    // update old current block
+    timeblocks[timeblocks.length-1].end = Date.now()
 
-    // create a new current timeblock
-    updateCurrentTimeblock({
+    // add a new current block
+    let newTimeblock = {
       event:eventName,
       start: Date.now(),
       end:0,
-      description:"no description"
+      description:"no description",
+      id:-1
+    }
+
+    postTimeblockRemote(newTimeblock)
+    .then(id => newTimeblock.id = id)
+    .then(() => {
+      saveTimeblocks([...timeblocks, newTimeblock])
+      // clear TextInput text
+      setEventName("")
+
+      // update event timer
+      setEventTimeLasting(0)
     })
 
-    // clear TextInput text
-    setEventName("")
-
-    // update event timer
-    setEventTimeLasting(0)
   }
 
-  // update event timer when current timeblock information is updated
+  // update event timer when timeblock information is updated
   useEffect(() => {
     const updateEventTimeLasting = () => {
       if(currentTimeblock){
         setEventTimeLasting(Math.floor((Date.now() - currentTimeblock.start)/1000))
       }
       else {
-        
         setEventTimeLasting(Date.now()/1000)
       }
     }
     let eventTimeUpdateInterval = setInterval(updateEventTimeLasting, 1000)
 
     return () => clearInterval(eventTimeUpdateInterval);
-  }, [currentTimeblock])
+  }, [timeblocks])
 
   
 
