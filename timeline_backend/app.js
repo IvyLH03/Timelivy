@@ -2,7 +2,7 @@ import express from 'express'
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite'
 const app = express()
-const port = 3000
+const port = 53705
 
 import { applyRateLimiting, applyLooseCORSPolicy, applyBodyParsing, applyLogging, applyErrorCatching } from './api-middleware.js'
 
